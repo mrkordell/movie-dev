@@ -33,7 +33,7 @@
       el: '#app',
       data: {
         results: [],
-        img_base: 'http://image.tmdb.org/t/p/w184'
+        img_base: 'http://image.tmdb.org/t/p/w92'
       },
       methods: {
         searchMovies: function(){
