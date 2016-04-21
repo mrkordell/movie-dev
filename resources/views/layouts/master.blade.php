@@ -24,8 +24,14 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <h1 style="font-family: 'Montserrat', sans-serif;">CineBound</h1>
+        </div>
+        <div class="col-md-6">
+          <a href="/auth/facebook"><img src="facebook_login.png" alt="Sign In with Facebook" class="pull-right" style="margin-top:20px;" /></a>
+          <a href="/auth/google"><img src="/google_signin_buttons/web/1x/btn_google_signin_light_pressed_web.png" alt="Sign In with Google" class="pull-right" style="margin-top:20px;" /></a>
+        </div>
+        <div class="col-md-12">
           @yield('content')
         </div>
       </div>
