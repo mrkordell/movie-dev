@@ -20,7 +20,7 @@
       <ul class="list-group">
         <li class="list-group-item" v-for="result in results">
           <img src="@{{img_base + result.poster_path}}" />
-          @{{ result.title }}
+          @{{ result.title }} - @{{ result.release_date }}
         </li>
       </ul>
     </div>
