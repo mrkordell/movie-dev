@@ -22,22 +22,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header">
+          <a class="navbar-brand" style="font-family: 'Montserrat', sans-serif;">CineBound</a>
+        </div>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#"><img src="{{Auth::user()->avatar}}" class="img-circle" style="width:25px;" /> {{Auth::user()->name}}</a></li>
+            </ul>
+        </div>
+  </nav>
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
-        <h1 style="font-family: 'Montserrat', sans-serif;">CineBound</h1>
-      </div>
-      <div class="col-md-6">
-        @if(Auth::check())
-          <div class="pull-right">
-            <img src="{{Auth::user()->avatar}}" /> {{Auth::user()->name}}
-          </div>
-        @else
-
-          <a href="/auth/facebook"><img src="facebook_login.png" alt="Sign In with Facebook" class="pull-right" style="margin-top:20px;" /></a>
-          <a href="/auth/google"><img src="/google_signin_buttons/web/1x/btn_google_signin_light_pressed_web.png" alt="Sign In with Google" class="pull-right" style="margin-top:20px;" /></a>
-        @endif
-      </div>
       <div class="col-md-12">
         @yield('content')
       </div>
