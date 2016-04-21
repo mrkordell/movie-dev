@@ -13,6 +13,8 @@
 
 use Illuminate\Http\Request;
 
+\Log::useFiles('php://stderr');
+
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
