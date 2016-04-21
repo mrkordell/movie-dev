@@ -44,11 +44,13 @@ class AuthController extends Controller
 
     public function redirectToProvider($provider = 'google')
     {
-        return Socialite::driver($provider)->redirect();
+        return Socialite::with($provider)->redirect();
     }
     public function handleProviderCallback($provider = 'google')
     {
-        $user = Socialite::driver($provider)->user();
+        $user = Socialite::with($provider)->user();
+
+        dd($user);
 
         // $user->token;
     }
