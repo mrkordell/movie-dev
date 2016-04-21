@@ -12,6 +12,19 @@
     </ul>
 
     <div class="form-group">
+      <label for="title">Search</label>
+      <input v-model="search" v-on:keyup.enter="searchMovies" class="form-control" />
+    </div>
+
+    <div v-if="results">
+      <ul class="list-group">
+        <li class="list-group-item" v-for="result in results">
+          @{{ result.title }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-group">
       <label for="title">Title</label>
       <input v-model="newMovie.title" class="form-control" />
     </div>
@@ -51,9 +64,18 @@
       newMovie: {},
       movies: [],
       newStudio: {},
-      studios: [{name:'Marvel'}]
+      studios: [{name:'Marvel'}],
+      search: '',
+      results: [],
+      csrf: '{{csrf_token()}}'
     },
     methods: {
+      searchMovies: function(){
+        var that = this;
+        $.post('/api/movies', {query: this.search}, function(data){
+          that.results = data.results;
+        }, 'JSON');
+      },
       addMovie: function(){
         this.movies.push(this.newMovie);
         this.newMovie = {};
