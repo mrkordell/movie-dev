@@ -148,7 +148,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        'Tmdb\Laravel\TmdbServiceProvider',
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Tmdb\Laravel\TmdbServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -204,7 +205,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'Tmdb' => 'Tmdb\Laravel\Facades\Tmdb'
+        'Tmdb' => Tmdb\Laravel\Facades\Tmdb::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

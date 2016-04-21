@@ -13,6 +13,9 @@
 
 use Illuminate\Http\Request;
 
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+
 Route::get('/', function () {
     return view('home');
 });

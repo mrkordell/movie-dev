@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Socialite;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
 
 class AuthController extends Controller
 {
@@ -38,6 +40,17 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    }
+
+    public function redirectToProvider($provider = 'google')
+    {
+        return Socialite::driver($provider)->redirect();
+    }
+    public function handleProviderCallback($provider = 'google')
+    {
+        $user = Socialite::driver($provider)->user();
+
+        // $user->token;
     }
 
     /**
