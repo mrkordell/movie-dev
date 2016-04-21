@@ -18,8 +18,22 @@ use Illuminate\Http\Request;
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::get('/', function () {
+Route::get('logout', function(){
+  Auth::logout();
+  return Redirect::to('/');
+});
+Route::group(['middleware' => 'auth'], function () {
+  Route::get('dashboard', function(){
     return view('home');
+  });
+});
+
+Route::get('/', function () {
+  if(Auth::check()){
+    return Redirect::to('dashboard');
+  }
+
+  return view('welcome');
 });
 
 Route::post('api/movies', function(Request $request){
