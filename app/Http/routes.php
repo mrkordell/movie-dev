@@ -11,6 +11,12 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     return view('home');
+});
+
+Route::post('api/movies', function(Request $request){
+  return Tmdb::getSearchApi()->searchMovies($request->input('query'));
 });
