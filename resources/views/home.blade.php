@@ -19,6 +19,7 @@
     <div v-if="results">
       <ul class="list-group">
         <li class="list-group-item" v-for="result in results">
+          <img src="@{{img_base + result.poster_path}}" />
           @{{ result.title }}
         </li>
       </ul>
@@ -67,7 +68,7 @@
       studios: [{name:'Marvel'}],
       search: '',
       results: [],
-      csrf: '{{csrf_token()}}'
+      img_base: 'http://image.tmdb.org/t/p/w184'
     },
     methods: {
       searchMovies: function(){
