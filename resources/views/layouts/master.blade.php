@@ -25,7 +25,7 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" style="font-family: 'Montserrat', sans-serif;">CineBound</a>
+        <a class="navbar-brand" style="font-family: 'Montserrat', sans-serif;" href="/">CineBound</a>
       </div>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><img src="{{Auth::user()->avatar}}" class="img-circle" style="width:25px;" /> {{Auth::user()->name}}</a></li>
