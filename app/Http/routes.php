@@ -26,6 +26,19 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('dashboard', function(){
     return view('home');
   });
+
+  Route::get('movie/{id}', function($id){
+    $movie = Tmdb::getMoviesApi()->getMovie($id);
+
+    return view('movie')->with(compact('movie'));
+  });
+
+  Route::post('user/movie', function(Request $request){
+    $movie = App\Movie::findOrAdd($request->input('id'));
+    Auth::user()->movies()->save($movie);
+
+    return Auth::user()->movies;
+  });
 });
 
 Route::get('/', function () {
