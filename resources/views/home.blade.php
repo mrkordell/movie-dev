@@ -6,7 +6,11 @@
     <div class="row">
       <div class="col-md-12">
         <h3>Tracked Movies</h3>
-        <img v-for="movie in movies" v-bind:src="img_base + movie.poster_path" class="pull-left" style="margin-right:25px;" />
+        <div class="row">
+          <div class="col-sm-2" style="margin-bottom:10px;" v-for="movie in movies">
+            <img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -29,7 +33,7 @@
         <div class="media-body">
           <h4 class="media-heading">@{{ result.title }}</h4>
           @{{ result.release_date }} <br />
-          <button class="btn btn-primary"  v-on:click="addMovie(result.id)">Add Movie</button>
+          <button class="btn btn-primary"  v-on:click="addMovie(result.id, $event)">Add Movie</button>
         </div>
       </div>
     </div>
@@ -40,7 +44,9 @@
       data: {
         movies: {!!Auth::user()->movies!!},
         results: [],
-        img_base: 'http://image.tmdb.org/t/p/w92'
+        search: '',
+        img_base: 'http://image.tmdb.org/t/p/w92',
+        base: 'http://image.tmdb.org/t/p/w154'
       },
       methods: {
         searchMovies: function(){
@@ -49,9 +55,12 @@
             that.results = data.results;
           }, 'JSON');
         },
-        addMovie: function(id){
+        addMovie: function(id, event){
           var that = this;
           $.post('user/movie', {id: id, "_token": "{{csrf_token()}}"}, function(data){
+            console.log(event.target)
+            event.target.className = "btn btn-success";
+            event.target.innerHTML = 'Added!';
             that.movies = data;
           });
         }
