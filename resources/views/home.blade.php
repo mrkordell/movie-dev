@@ -7,8 +7,9 @@
       <div class="col-md-12">
         <h3>Tracked Movies</h3>
         <div class="row">
-          <div class="col-sm-2" style="margin-bottom:10px;" v-for="movie in movies">
-            <img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" />
+          <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in movies">
+            <a href="/movie/@{{movie.tmdb_id}}"><img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" /></a><br />
+            <span class="movie-title">@{{movie.title}}</span>
           </div>
         </div>
       </div>
@@ -67,5 +68,12 @@
       }
     })
     </script>
+
+    <style>
+      span.movie-title{
+        font-size:12px;
+        color:#333;
+      }
+    </style>
 
   @endsection
