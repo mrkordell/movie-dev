@@ -7,6 +7,9 @@
   <h1>{{$movie['title']}}</h1>
 
   <style>
+  html{
+    height: 100%;
+  }
   body {
   width: 100%;
   height: 100%;
@@ -24,6 +27,10 @@ body::after {
   right: 0;
   position: absolute;
   z-index: -1;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
   </style>
 @endsection
