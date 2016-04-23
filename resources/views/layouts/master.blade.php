@@ -20,6 +20,12 @@
   <![endif]-->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.11.2/lodash.min.js"></script>
+  <script type="text/javascript">
+    Vue.filter('inChunksOf', function (array, number = 2) {
+      return _.chunk(array, number)
+    });
+  </script>
 </head>
 <body>
   <nav class="navbar navbar-default">
