@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class AddMoviesTable extends Migration
 {
@@ -12,7 +12,7 @@ class AddMoviesTable extends Migration
      */
     public function up()
     {
-      Schema::create('movies', function (Blueprint $table) {
+        Schema::create('movies', function (Blueprint $table) {
           $table->increments('id');
           $table->integer('tmdb_id');
           $table->string('title');

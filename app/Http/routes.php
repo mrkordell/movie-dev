@@ -18,22 +18,23 @@ use Illuminate\Http\Request;
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
 
-Route::get('logout', function(){
+Route::get('logout', function () {
   Auth::logout();
+
   return Redirect::to('/');
 });
 Route::group(['middleware' => 'auth'], function () {
-  Route::get('dashboard', function(){
+  Route::get('dashboard', function () {
     return view('home');
   });
 
-  Route::get('movie/{id}', function($id){
+  Route::get('movie/{id}', function ($id) {
     $movie = Tmdb::getMoviesApi()->getMovie($id);
 
     return view('movie')->with(compact('movie'));
   });
 
-  Route::post('user/movie', function(Request $request){
+  Route::post('user/movie', function (Request $request) {
     $movie = App\Movie::findOrAdd($request->input('id'));
     Auth::user()->movies()->save($movie);
 
@@ -42,13 +43,13 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', function () {
-  if(Auth::check()){
-    return Redirect::to('dashboard');
+  if (Auth::check()) {
+      return Redirect::to('dashboard');
   }
 
   return view('welcome');
 });
 
-Route::post('api/movies', function(Request $request){
+Route::post('api/movies', function (Request $request) {
   return Tmdb::getSearchApi()->searchMovies($request->input('query'));
 });
