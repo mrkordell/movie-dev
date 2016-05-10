@@ -23,6 +23,10 @@ Route::get('logout', function () {
 
   return Redirect::to('/');
 });
+
+Route::get('/{user_id}.ics', function($user_id){
+  return view('calendar')->with('movies', User::find($user_id)->movies->sortBy('release_date')->values()->all());
+});
 Route::group(['middleware' => 'auth'], function () {
   Route::get('dashboard', function () {
     return view('home');
@@ -34,9 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     return view('movie')->with(compact('movie'));
   });
 
-  Route::get('cal.ics', function(){
-    return view('calendar')->with('movies', Auth::user()->movies->sortBy('release_date')->values()->all());
-  });
+
 
   Route::post('user/movie', function (Request $request) {
     $movie = App\Movie::findOrAdd($request->input('id'));
