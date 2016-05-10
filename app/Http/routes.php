@@ -34,6 +34,10 @@ Route::group(['middleware' => 'auth'], function () {
     return view('movie')->with(compact('movie'));
   });
 
+  Route::get('cal.ics', function(){
+    return view('calendar')->with('movies', Auth::user()->movies->sortBy('release_date')->values()->all());
+  });
+
   Route::post('user/movie', function (Request $request) {
     $movie = App\Movie::findOrAdd($request->input('id'));
     Auth::user()->movies()->save($movie);
