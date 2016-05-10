@@ -7,7 +7,8 @@
       <div class="col-md-12">
         <h3>Tracked Movies</h3>
         <div class="row" v-for="chunk in movies | inChunksOf 6">
-          <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk">
+          <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie">
+            <div v-if="remove == movie" v-on:click="removeMovie(movie.id)">Remove</div>
             <a href="/movie/@{{movie.tmdb_id}}"><img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" /></a><br />
             <span class="movie-title">@{{movie.title}}</span>
           </div>
@@ -43,11 +44,12 @@
     new Vue({
       el: '#app',
       data: {
-        movies: {!!Auth::user()->movies!!},
+        movies: {!!Auth::user()->movies->sortBy('release_date')->values()->toJson()!!},
         results: [],
         search: '',
         img_base: 'http://image.tmdb.org/t/p/w92',
-        base: 'http://image.tmdb.org/t/p/w154'
+        base: 'http://image.tmdb.org/t/p/w154',
+        remove: {}
       },
       methods: {
         searchMovies: function(){
@@ -63,6 +65,16 @@
             event.target.className = "btn btn-success";
             event.target.innerHTML = 'Added!';
             that.movies = data;
+          });
+        },
+        removeMovie: function(id){
+          $.post('user/remove', {id: id, "_token": "{{csrf_token()}}"}, function(data){
+
+          });
+          this.movies = _.filter(this.movies, function(movie){
+            if(movie.id != id){
+              return movie;
+            }
           });
         }
       }

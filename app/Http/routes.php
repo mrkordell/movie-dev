@@ -42,6 +42,11 @@ Route::group(['middleware' => 'auth'], function () {
   });
 });
 
+Route::post('user/remove', function(Request $request){
+  Auth::user()->movies()->detach($request->input('id'));
+  return Auth::user()->movies;
+});
+
 Route::get('/', function () {
   if (Auth::check()) {
       return Redirect::to('dashboard');
