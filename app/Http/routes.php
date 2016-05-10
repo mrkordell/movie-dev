@@ -25,7 +25,10 @@ Route::get('logout', function () {
 });
 
 Route::get('/{user_id}.ics', function($user_id){
-  return view('calendar')->with('movies', App\User::find($user_id)->movies->sortBy('release_date')->values()->all());
+  $body = view('calendar')->with('movies', App\User::find($user_id)->movies->sortBy('release_date')->values()->all());
+  return response($body)->withHeaders([
+    'Content-Type' => 'text/calendar',
+  ]);
 });
 Route::group(['middleware' => 'auth'], function () {
   Route::get('dashboard', function () {
