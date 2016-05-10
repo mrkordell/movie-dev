@@ -1,15 +1,5 @@
-BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//hacksw/handcal//NONSGML v1.0//EN
-CALSCALE:GREGORIAN
+BEGIN:VCALENDAR{{"\r\n"}}VERSION:2.0{{"\r\n"}}PRODID:-//hacksw/handcal//NONSGML v1.0//EN{{"\r\n"}}CALSCALE:GREGORIAN
 @foreach($movies as $movie)
-BEGIN:VEVENT
-DTEND:{{date('Ymd\THis', strtotime($movie->release_date))}}
-UID:{{$movie->id}}
-DTSTAMP:{{date('Ymd\THis', strtotime($movie->release_date))}}
-DESCRIPTION:{{$movie->title}}
-URL;VALUE=URI:http://www.cinebound.com/movie/{{$movie->id}}
-DTSTART:{{date('Ymd\THis', strtotime($movie->release_date))}}
-END:VEVENT
+{{"\r\n"}}BEGIN:VEVENT{{"\r\n"}}DTEND:{{date('Ymd\THis', strtotime($movie->release_date))}}{{"\r\n"}}UID:{{$movie->id}}{{"\r\n"}}DTSTAMP:{{date('Ymd\THis', strtotime($movie->release_date))}}{{"\r\n"}}DESCRIPTION:{{$movie->title}}{{"\r\n"}}URL;VALUE=URI:http://www.cinebound.com/movie/{{$movie->id}}{{"\r\n"}}DTSTART:{{date('Ymd\THis', strtotime($movie->release_date))}}{{"\r\n"}}END:VEVENT
 @endforeach
-END:VCALENDAR
+{{"\r\n"}}END:VCALENDAR
