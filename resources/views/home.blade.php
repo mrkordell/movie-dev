@@ -7,10 +7,11 @@
       <div class="col-md-12">
         <h3>Tracked Movies</h3>
         <div class="row" v-for="chunk in movies | inChunksOf 6">
-          <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie">
+          <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie" v-on:mouseout="remove = {}">
             <div v-if="remove == movie" v-on:click="removeMovie(movie.id)">Remove</div>
             <a href="/movie/@{{movie.tmdb_id}}"><img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" /></a><br />
-            <span class="movie-title">@{{movie.title}}</span>
+            <span class="movie-title">@{{movie.title}}</span><br />
+            <span class="movie-release-date">@{{movie.release_date | date}}</span>
           </div>
         </div>
       </div>
@@ -41,7 +42,11 @@
     </div>
 
     <script type="text/javascript">
-    new Vue({
+    Vue.filter('date', function(value){
+      var date = new Date(value);
+      return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+    });
+    var vm = new Vue({
       el: '#app',
       data: {
         movies: {!!Auth::user()->movies->sortBy('release_date')->values()->toJson()!!},
@@ -78,11 +83,19 @@
           });
         }
       }
-    })
+
+
+    });
+
     </script>
 
     <style>
       span.movie-title{
+        font-size:12px;
+        color:#333;
+        font-weight: bold;
+      }
+      span.movie-release{
         font-size:12px;
         color:#333;
       }
