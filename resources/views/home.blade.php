@@ -5,6 +5,9 @@
   <div id="app">
     <div class="row">
       <div class="col-md-12">
+        <input class="form-control" type="text" value="http://www.cinebound.com/{{Auth::user()->id}}.ics?nocache" readonly />
+      </div>
+      <div class="col-md-12">
         <h3>Tracked Movies</h3>
         <div class="row" v-for="chunk in movies | inChunksOf 6">
           <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie" v-on:mouseout="remove = {}">
@@ -42,10 +45,6 @@
     </div>
 
     <script type="text/javascript">
-    Vue.filter('date', function(value){
-      var date = new Date(value);
-      return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
-    });
     var vm = new Vue({
       el: '#app',
       data: {

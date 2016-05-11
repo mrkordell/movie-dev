@@ -20,11 +20,15 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.22/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/lodash/4.11.2/lodash.min.js"></script>
   <script type="text/javascript">
     Vue.filter('inChunksOf', function (array, number = 2) {
       return _.chunk(array, number)
+    });
+    Vue.filter('date', function(value){
+      var date = new Date(value);
+      return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
     });
   </script>
 </head>
