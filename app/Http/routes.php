@@ -24,15 +24,16 @@ Route::get('logout', function () {
   return Redirect::to('/');
 });
 
-Route::get('/{user_id}.ics', function($user_id){
+Route::get('/{user_id}.ics', function ($user_id) {
   $body = view('calendar')->with('movies', App\User::find($user_id)->movies->sortBy('release_date')->values()->all());
   $body = str_replace("\r\n", "\n", $body);
+
   return response($body)->withHeaders([
     'Content-Type' => 'text/calendar',
   ]);
 });
 
-Route::get('/{user_id}.txt', function($user_id){
+Route::get('/{user_id}.txt', function ($user_id) {
   return view('calendar')->with('movies', App\User::find($user_id)->movies->sortBy('release_date')->values()->all());
 });
 Route::group(['middleware' => 'auth'], function () {
@@ -46,8 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
     return view('movie')->with(compact('movie'));
   });
 
-
-
   Route::post('user/movie', function (Request $request) {
     $movie = App\Movie::findOrAdd($request->input('id'));
     Auth::user()->movies()->save($movie);
@@ -56,8 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
   });
 });
 
-Route::post('user/remove', function(Request $request){
+Route::post('user/remove', function (Request $request) {
   Auth::user()->movies()->detach($request->input('id'));
+
   return Auth::user()->movies;
 });
 
