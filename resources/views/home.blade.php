@@ -38,7 +38,7 @@
         </div>
         <div class="media-body">
           <h4 class="media-heading">@{{ result.title }}</h4>
-          @{{ result.release_date }} <br />
+          World Premiere: @{{ result.release_date | date }} <br />
           <button class="btn btn-primary"  v-on:click="addMovie(result.id, $event)">Add Movie</button>
         </div>
       </div>
