@@ -16,18 +16,27 @@ class Movie extends Model
     } else {
       $movie = Tmdb::getMoviesApi()->getMovie($id);
 
-      $releases = Tmdb::getMoviesApi()->getReleases($id);
-      $releases = $releases['countries'];
-
-      $release = collect($releases)->where('iso_3166_1', 'US')->first();
+      $release_date = self::getReleaseDate($id);
 
       return self::create([
         'tmdb_id'       => $movie['id'],
         'title'         => $movie['title'],
         'poster_path'   => $movie['poster_path'],
         'backdrop_path' => $movie['backdrop_path'],
-        'release_date'  => $release['release_date'],
+        'release_date'  => $release_date,
       ]);
     }
+  }
+
+  public static function getReleaseDate($id){
+    $releases = Tmdb::getMoviesApi()->getReleases($id);
+    $releases = $releases['countries'];
+
+    $release = collect($releases)->where('iso_3166_1', 'US')->first();
+    return $release['release_date'];
+  }
+
+  public static function getUpcoming(){
+    return \Tmdb::getMoviesApi()->getUpcoming(['page'=>1])['results'];
   }
 }

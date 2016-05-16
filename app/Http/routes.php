@@ -24,6 +24,11 @@ Route::get('logout', function () {
   return Redirect::to('/');
 });
 
+Route::get('test', function(){
+  $movies = \Tmdb::getMoviesApi()->getUpcoming(['page'=>1]);
+  dd($movies);
+});
+
 Route::get('/{user_id}.ics', function ($user_id) {
   $body = view('calendar')->with('movies', App\User::find($user_id)->movies->sortBy('release_date')->values()->all());
   $body = str_replace("\r\n", "\n", $body);
