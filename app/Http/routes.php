@@ -24,8 +24,8 @@ Route::get('logout', function () {
   return Redirect::to('/');
 });
 
-Route::get('test', function(){
-  $movies = \Tmdb::getMoviesApi()->getUpcoming(['page'=>1]);
+Route::get('test', function () {
+  $movies = \Tmdb::getMoviesApi()->getUpcoming(['page' => 1]);
   dd($movies);
 });
 
