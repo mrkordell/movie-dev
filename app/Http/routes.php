@@ -74,6 +74,14 @@ Route::get('/', function () {
   return view('welcome');
 });
 
+Route::get('/user/movies', function () {
+  return Auth::user()->movies->sortBy('release_date')->values()->toJson();
+});
+
+Route::get('upcoming', function () {
+  return collect(App\Movie::getUpcoming())->toJson();
+});
+
 Route::post('api/movies', function (Request $request) {
   return Tmdb::getSearchApi()->searchMovies($request->input('query'));
 });

@@ -13,32 +13,26 @@
 
   <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
+  <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
+
+
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.22/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/lodash/4.11.2/lodash.min.js"></script>
-  <script type="text/javascript">
-    Vue.filter('inChunksOf', function (array, number = 2) {
-      return _.chunk(array, number)
-    });
-    Vue.filter('date', function(value){
-      var date = new Date(value);
-      return (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
-    });
-  </script>
 </head>
 <body>
+  <div id="app">
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" style="font-family: 'Montserrat', sans-serif;" href="/">CineBound</a>
       </div>
       <ul class="nav navbar-nav navbar-right">
+        <li><a v-link="'search'" href="javascript:void(0);">Find Movies</a></li>
+        <li><a v-link="'upcoming'" href="javascript:void(0);">Upcoming Movies</a></li>
         <li><a href="#"><img src="{{Auth::user()->avatar}}" class="img-circle" style="width:25px;" /> {{Auth::user()->name}}</a></li>
       </ul>
     </div>
@@ -51,10 +45,14 @@
     </div>
   </div>
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.24/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/0.7.10/vue-router.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.11.2/lodash.min.js"></script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="{{ elixir('js/main.js')}}"></script>
+</div>
 </body>
 </html>
