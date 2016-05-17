@@ -3,10 +3,12 @@
     <h3>Tracked Movies</h3>
     <div class="row" v-for="chunk in movies | limit limit | inChunksOf 6">
       <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie" v-on:mouseout="remove = {}">
-        <div v-if="remove == movie" v-on:click="removeMovie(movie.id)">Remove</div>
-        <a href="/movie/{{movie.tmdb_id}}"><img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" /></a><br />
+        <div class="position:relative;">
+        <div style="position:absolute;top:50%;left:50%;margin-left:-25px;margin-top:-55px;color:#fff;z-index:9999;font-size:36pt;" v-if="remove == movie" v-on:click="removeMovie(movie.id)"></div>
+        <a class="hvr-grow" href="/movie/{{movie.tmdb_id}}"><img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" /></a><br />
         <span class="movie-title">{{movie.title}}</span><br />
         <span class="movie-release-date">{{movie.release_date | date}}</span>
+        </div>
       </div>
     </div>
     <div class="row" v-if="movies.length > 12">
