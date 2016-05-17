@@ -24,8 +24,8 @@ Route::get('logout', function () {
   return Redirect::to('/');
 });
 
-Route::get('test', function(){
-  $movies = \Tmdb::getMoviesApi()->getUpcoming(['page'=>1]);
+Route::get('test', function () {
+  $movies = \Tmdb::getMoviesApi()->getUpcoming(['page' => 1]);
   dd($movies);
 });
 
@@ -74,11 +74,11 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::get('/user/movies', function(){
+Route::get('/user/movies', function () {
   return Auth::user()->movies->sortBy('release_date')->values()->toJson();
 });
 
-Route::get('upcoming', function(){
+Route::get('upcoming', function () {
   return collect(App\Movie::getUpcoming())->toJson();
 });
 
