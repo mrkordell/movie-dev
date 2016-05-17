@@ -10532,6 +10532,7 @@ exports.default = {
   data: function data() {
     return {
       upcoming: [],
+      movies: [],
       img_base: 'http://image.tmdb.org/t/p/w92',
       base: 'http://image.tmdb.org/t/p/w154'
     };
@@ -10539,21 +10540,21 @@ exports.default = {
 
   route: {
     data: function data(transition) {
-      $.get('/upcoming', function (data) {
-        return transition.next({ upcoming: data });
-      }, 'json');
+      $.when($.getJSON('/user/movies'), $.getJSON('/upcoming')).done(function (movies, upcoming) {
+        transition.next({ movies: movies[0], upcoming: upcoming[0] });
+      });
     }
   },
   methods: {
     hasMovie: function hasMovie(id) {
-      return _.find(undefined.movies, function (m) {
+      return _.find(this.movies, function (m) {
         return m.tmdb_id == id;
       });
     }
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<h3>Coming Soon</h3>\n<div class=\"row\" v-for=\"chunk in upcoming | inChunksOf 6\">\n  <div class=\"col-sm-2\" style=\"margin-bottom:20px;\" v-for=\"movie in chunk\" v-on:mouseover=\"remove = movie\" v-on:mouseout=\"remove = {}\">\n    <a href=\"/movie/{{movie.tmdb_id}}\"><img v-bind:src=\"base + movie.poster_path\" class=\"pull-left\" style=\"width:100%\"></a><br>\n    <span class=\"movie-title\">{{movie.title}}</span><br>\n    <span class=\"movie-release-date\">{{movie.release_date | date}}</span>\n    <button class=\"btn btn-primary\" v-if=\"!hasMovie(movie.id)\" v-on:click=\"addMovie(movie.id, $event)\">Add Movie</button>\n  </div>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<h3>Coming Soon</h3>\n<div class=\"row\" v-for=\"chunk in upcoming | inChunksOf 6\">\n  <div class=\"col-sm-2\" style=\"margin-bottom:20px;\" v-for=\"movie in chunk\" v-on:mouseover=\"remove = movie\" v-on:mouseout=\"remove = {}\">\n    <a href=\"/movie/{{movie.tmdb_id}}\"><img v-bind:src=\"base + movie.poster_path\" class=\"pull-left\" style=\"width:100%\"></a><br>\n    <div>\n      <span class=\"movie-title\">{{movie.title}}</span><br>\n      <span class=\"movie-release-date\">{{movie.release_date | date}}</span>\n    </div>\n    <button class=\"btn btn-primary\" v-if=\"!hasMovie(movie.id)\" v-on:click=\"addMovie(movie.id, $event)\">Add Movie</button>\n  </div>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
