@@ -6,3 +6,5 @@ Homestead.json
 .env
 /storage/tmdb
 /public/build
+/public/css
+/public/js
