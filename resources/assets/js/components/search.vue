@@ -41,6 +41,15 @@ export default {
         that.results = data.results;
       }, 'JSON');
     },
+    addMovie (id, event){
+      var that = this;
+      $.post('user/movie', {id: id, "_token": "{{csrf_token()}}"}, function(data){
+        console.log(event.target);
+        event.target.className = "btn btn-success";
+        event.target.innerHTML = 'Added!';
+        that.movies = data;
+      });
+    },
     poster(movie) {
       if(movie.poster_path !== null){
         return this.img_base + movie.poster_path;

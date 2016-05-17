@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf_token" content="{!!csrf_token()!!}">
+  <meta name="user_id" content="{{Auth::user()->id}}">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>CineBound</title>
 
@@ -31,6 +33,7 @@
         <a class="navbar-brand" style="font-family: 'Montserrat', sans-serif;" href="/">CineBound</a>
       </div>
       <ul class="nav navbar-nav navbar-right">
+        <li><a v-link="'tracked'" href="javascript:void(0);">Tracked Movies</a></li>
         <li><a v-link="'search'" href="javascript:void(0);">Find Movies</a></li>
         <li><a v-link="'upcoming'" href="javascript:void(0);">Upcoming Movies</a></li>
         <li><a href="#"><img src="{{Auth::user()->avatar}}" class="img-circle" style="width:25px;" /> {{Auth::user()->name}}</a></li>

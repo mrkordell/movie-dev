@@ -2,7 +2,7 @@
   <h3>Coming Soon</h3>
   <div class="row" v-for="chunk in upcoming | inChunksOf 6">
     <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie" v-on:mouseout="remove = {}">
-      <a href="/movie/{{movie.tmdb_id}}"><img v-bind:src="poster(movie)" class="pull-left" style="width:100%" /></a><br />
+      <a class="hvr-grow" href="/movie/{{movie.tmdb_id}}"><img v-bind:src="poster(movie)" class="pull-left" style="width:100%" /></a><br />
       <div>
         <span class="movie-title">{{movie.title}}</span><br />
         <span class="movie-release-date">{{movie.release_date | date}}</span>
@@ -31,6 +31,15 @@ export default {
     }
   },
   methods: {
+    addMovie (id, event){
+      var that = this;
+      $.post('user/movie', {id: id, "_token": $('meta[name="csrf_token"]').attr('content')}, function(data){
+        console.log(event.target);
+        event.target.className = "btn btn-success";
+        event.target.innerHTML = 'Added!';
+        that.movies = data;
+      });
+    },
     hasMovie (id){
       return _.find(this.movies, (m) => m.tmdb_id == id);
     },

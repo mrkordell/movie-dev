@@ -1,4 +1,10 @@
 <template>
+  <div class="row">
+    <div class="col-md-12">
+      <input class="form-control" type="text" value="http://www.cinebound.com/{{user_id}}.ics?nocache" readonly />
+    </div>
+  </div>
+  <div class="row">
   <div class="col-md-12">
     <h3>Tracked Movies</h3>
     <div class="row" v-for="chunk in movies | limit limit | inChunksOf 6">
@@ -17,6 +23,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -27,7 +34,8 @@
                 img_base: 'http://image.tmdb.org/t/p/w92',
                 base: 'http://image.tmdb.org/t/p/w154',
                 remove: {},
-                limit: 12
+                limit: 12,
+                user_id: $('meta[name="user_id"]').attr('content')
             };
         },
         route: {
@@ -36,15 +44,6 @@
           }
         },
         methods: {
-          addMovie: function(id, event){
-            var that = this;
-            $.post('user/movie', {id: id, "_token": "{{csrf_token()}}"}, function(data){
-              console.log(event.target);
-              event.target.className = "btn btn-success";
-              event.target.innerHTML = 'Added!';
-              that.movies = data;
-            });
-          },
           removeMovie: function(id){
             $.post('user/remove', {id: id, "_token": "{{csrf_token()}}"}, function(data){
 
