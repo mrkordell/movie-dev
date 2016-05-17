@@ -12,7 +12,7 @@
     <div class="media" v-for="result in results">
       <div class="media-left">
         <a href="/movie/{{result.id}}">
-          <img class="media-object" v-bind:src="img_base + result.poster_path" alt="">
+          <img class="media-object" v-bind:src="poster(result)" alt="">
         </a>
       </div>
       <div class="media-body">
@@ -35,11 +35,18 @@ export default {
     };
   },
   methods: {
-    searchMovies: function(){
+    searchMovies (){
       const that = this;
       $.post('/api/movies', {query: this.search}, function(data){
         that.results = data.results;
       }, 'JSON');
+    },
+    poster(movie) {
+      if(movie.poster_path !== null){
+        return this.img_base + movie.poster_path;
+      } else {
+        return 'http://dummyimage.com/154x231/000/ffffff&text=No+Poster';
+      }
     }
   }
 };
