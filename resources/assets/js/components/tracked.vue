@@ -1,0 +1,58 @@
+<template>
+  <div class="col-md-12">
+    <h3>Tracked Movies</h3>
+    <div class="row" v-for="chunk in movies | limit limit | inChunksOf 6">
+      <div class="col-sm-2" style="margin-bottom:20px;" v-for="movie in chunk" v-on:mouseover="remove = movie" v-on:mouseout="remove = {}">
+        <div v-if="remove == movie" v-on:click="removeMovie(movie.id)">Remove</div>
+        <a href="/movie/{{movie.tmdb_id}}"><img v-bind:src="base + movie.poster_path" class="pull-left" style="width:100%" /></a><br />
+        <span class="movie-title">{{movie.title}}</span><br />
+        <span class="movie-release-date">{{movie.release_date | date}}</span>
+      </div>
+    </div>
+    <div class="row" v-if="movies.length > 12">
+      <div class="col-md-12">
+        <button class="btn btn-primary" v-on:click="limit = 9999">Show All</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                movies: [],
+                img_base: 'http://image.tmdb.org/t/p/w92',
+                base: 'http://image.tmdb.org/t/p/w154',
+                remove: {},
+                limit: 12
+            };
+        },
+        route: {
+          data(transition) {
+            $.get('/user/movies', (data) => transition.next({movies: data}), 'json');
+          }
+        },
+        methods: {
+          addMovie: function(id, event){
+            var that = this;
+            $.post('user/movie', {id: id, "_token": "{{csrf_token()}}"}, function(data){
+              console.log(event.target);
+              event.target.className = "btn btn-success";
+              event.target.innerHTML = 'Added!';
+              that.movies = data;
+            });
+          },
+          removeMovie: function(id){
+            $.post('user/remove', {id: id, "_token": "{{csrf_token()}}"}, function(data){
+
+            });
+            this.movies = _.filter(this.movies, function(movie){
+              if(movie.id != id){
+                return movie;
+              }
+            });
+          }
+        }
+    };
+</script>
