@@ -36,6 +36,7 @@
         <li><a v-link="'tracked'" href="javascript:void(0);">Tracked Movies</a></li>
         <li><a v-link="'search'" href="javascript:void(0);">Find Movies</a></li>
         <li><a v-link="'upcoming'" href="javascript:void(0);">Upcoming Movies</a></li>
+        <li><a v-link="'popular'" href="javascript:void(0);">Popular Movies</a></li>
         <li><a href="#"><img src="{{Auth::user()->avatar}}" class="img-circle" style="width:25px;" /> {{Auth::user()->name}}</a></li>
       </ul>
     </div>
