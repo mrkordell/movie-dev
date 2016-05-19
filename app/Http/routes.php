@@ -24,9 +24,12 @@ Route::get('logout', function () {
   return Redirect::to('/');
 });
 
-Route::get('test', function () {
-  $movies = \Tmdb::getMoviesApi()->getUpcoming(['page' => 1]);
-  dd($movies);
+Route::get('popular', function () {
+
+  return App\Movie::with('users')->get()->sortByDesc(function($movie){
+    return $movie->users->count();
+  })->slice(0,12)->values()->all();
+
 });
 
 Route::get('/{user_id}.ics', function ($user_id) {
