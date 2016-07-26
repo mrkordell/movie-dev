@@ -43,7 +43,7 @@ export default {
     },
     addMovie (id, event){
       var that = this;
-      $.post('user/movie', {id: id, "_token": "{{csrf_token()}}"}, function(data){
+      $.post('user/movie', {id: id, "_token": $('meta[name="csrf_token"]').attr('content')}, function(data){
         console.log(event.target);
         event.target.className = "btn btn-success";
         event.target.innerHTML = 'Added!';
