@@ -78,7 +78,10 @@ Route::get('/', function () {
 });
 
 Route::get('/user/movies', function () {
-  return Auth::user()->movies->sortBy('release_date')->values()->toJson();
+  $movies = Auth::user()->movies->sortBy('release_date')->filter(function($movie){
+    return(strtotime($movie->release_date) >= time());
+  });
+  return $movies->values()->toJson();
 });
 
 Route::get('upcoming', function () {
