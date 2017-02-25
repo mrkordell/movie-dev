@@ -28,6 +28,18 @@ class Movie extends Model
         }
     }
 
+    public static function updateTmdb(Movie $movie){
+      $tmdb = Tmdb::getMoviesApi()->getMovie($movie->tmdb_id);
+      $release_date = self::getReleaseDate($movie->tmdb_id);
+
+      $movie->title = $tmdb['title'];
+      $movie->poster_path = $tmdb['poster_path'];
+      $movie->backdrop_path = $tmdb['backdrop_path'];
+      $movie->release_date = $release_date;
+      $movie->save();
+      echo 'Updated ' . $movie->title . "\r\n";
+    }
+
     public function users()
     {
         return $this->belongsToMany('App\User');
