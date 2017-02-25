@@ -45,6 +45,6 @@ class Movie extends Model
 
     public static function getUpcoming()
     {
-        return \Tmdb::getMoviesApi()->getUpcoming(['page' => 1])['results'];
+        return \Tmdb::getMoviesApi()->getUpcoming(['page' => 1, 'region' => 'US'])['results'];
     }
 }
