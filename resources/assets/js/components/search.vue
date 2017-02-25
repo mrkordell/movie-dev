@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <div class="row" v-show="results">
+  <div class="row" v-if="results">
     <div class="media" v-for="result in results">
       <div class="media-left">
         <a href="/movie/{{result.id}}">
@@ -22,6 +22,7 @@
       </div>
     </div>
   </div>
+  <h6 v-else>No Movies Found</h6>
 </template>
 
 <script>
@@ -38,7 +39,12 @@ export default {
     searchMovies (){
       const that = this;
       $.post('/api/movies', {query: this.search}, function(data){
-        that.results = data.results;
+        let now = new Date().getTime();
+        that.results = data.results.filter((movie) => {
+          if(Date.parse(movie.release_date) > now){
+            return movie;
+          }
+        });
       }, 'JSON');
     },
     addMovie (id, event){
