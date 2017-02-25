@@ -26,7 +26,7 @@ Route::get('logout', function () {
 
 Route::get('popular', function () {
 
-  return App\Movie::with('users')->get()->sortByDesc(function ($movie) {
+  return App\Movie::with('users')->where('release_date','>=','NOW()')->get()->sortByDesc(function ($movie) {
     return $movie->users->count();
   })->slice(0, 12)->values()->all();
 
