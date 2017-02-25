@@ -38,8 +38,8 @@ class UpdateMovies extends Command
     public function handle()
     {
         $movies = \App\Movie::all();
-        foreach($movies as $movie){
-          echo \App\Movie::updateTmdb($movie);
+        foreach ($movies as $movie) {
+            echo \App\Movie::updateTmdb($movie);
         }
     }
 }
