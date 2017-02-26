@@ -37,7 +37,7 @@ class UpdateMovies extends Command
      */
     public function handle()
     {
-        $movies = \App\Movie::all();
+        $movies = \App\Movie::where('release_date', '>', 'NOW()')->get();
         foreach($movies as $movie){
           echo \App\Movie::updateTmdb($movie);
         }
