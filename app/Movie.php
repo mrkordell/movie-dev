@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Tmdb;
+use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
@@ -28,16 +28,17 @@ class Movie extends Model
         }
     }
 
-    public static function updateTmdb(Movie $movie){
-      $tmdb = Tmdb::getMoviesApi()->getMovie($movie->tmdb_id);
-      $release_date = self::getReleaseDate($movie->tmdb_id);
+    public static function updateTmdb(Movie $movie)
+    {
+        $tmdb = Tmdb::getMoviesApi()->getMovie($movie->tmdb_id);
+        $release_date = self::getReleaseDate($movie->tmdb_id);
 
-      $movie->title = $tmdb['title'];
-      $movie->poster_path = $tmdb['poster_path'];
-      $movie->backdrop_path = $tmdb['backdrop_path'];
-      $movie->release_date = $release_date;
-      $movie->save();
-      echo 'Updated ' . $movie->title . "\r\n";
+        $movie->title = $tmdb['title'];
+        $movie->poster_path = $tmdb['poster_path'];
+        $movie->backdrop_path = $tmdb['backdrop_path'];
+        $movie->release_date = $release_date;
+        $movie->save();
+        echo 'Updated '.$movie->title."\r\n";
     }
 
     public function users()
